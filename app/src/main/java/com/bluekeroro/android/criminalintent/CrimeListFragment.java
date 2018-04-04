@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class CrimeListFragment extends Fragment {
     private static int mPosition;
     private boolean mSubtitleVisible;
     private Callback mCallback;
+    private Button mBlankNewCriem;
+    private View mBlankView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,23 @@ public class CrimeListFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_crime_list,container,false);
         mCrimeRecyclerView=(RecyclerView)view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mBlankView=(View)view.findViewById(R.id.crime_recycler_view_blank);
+        mBlankNewCriem=(Button)view.findViewById(R.id.blank_new_crime);
+        mBlankNewCriem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Crime crime=new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                mCallback.onCrimeSelected(crime,REQUEST_CRIME_POSITION);
+            }
+        });
+        if(CrimeLab.get(getActivity()).getCrimes().size()==0){
+            mBlankView.setVisibility(View.VISIBLE);
+            mCrimeRecyclerView.setVisibility(View.INVISIBLE);
+        }else{
+            mBlankView.setVisibility(View.INVISIBLE);
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+        }
         if(savedInstanceState!=null){
             mSubtitleVisible=savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
@@ -132,6 +152,13 @@ public class CrimeListFragment extends Fragment {
     public void updateUI(int position){
         CrimeLab crimeLab=CrimeLab.get(getActivity());
         List<Crime> crimes=crimeLab.getCrimes();
+        if(CrimeLab.get(getActivity()).getCrimes().size()==0){
+            mBlankView.setVisibility(View.VISIBLE);
+            mCrimeRecyclerView.setVisibility(View.INVISIBLE);
+        }else{
+            mBlankView.setVisibility(View.INVISIBLE);
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+        }
         if(mAdapter==null){
             mAdapter=new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
@@ -163,6 +190,7 @@ public class CrimeListFragment extends Fragment {
             case R.id.menu_item_new_crime:
                 Crime crime=new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
+                updateUI(0);
                 mCallback.onCrimeSelected(crime,REQUEST_CRIME_POSITION);
                 return true;
             case R.id.menu_item_subtitle:

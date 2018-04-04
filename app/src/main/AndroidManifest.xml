@@ -3,6 +3,7 @@
           package="com.bluekeroro.android.criminalintent">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
                      android:maxSdkVersion="18"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-feature android:name="android.hardware.camera"
                   android:required="false"/>
     <application

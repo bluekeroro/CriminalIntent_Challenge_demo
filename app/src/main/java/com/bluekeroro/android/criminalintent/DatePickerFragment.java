@@ -61,34 +61,6 @@ public class DatePickerFragment extends DialogFragment {
         return view;
     }
 
-    /*@NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Date date=(Date)getArguments().getSerializable(ARG_DATE);
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTime(date);
-        int year=calendar.get(Calendar.YEAR);
-        int month=calendar.get(Calendar.MONTH);
-        int day=calendar.get(Calendar.DAY_OF_MONTH);
-        View v= LayoutInflater.from(getActivity()).inflate(R.layout.dialog_date,null);
-        mDatePicker=(DatePicker)v.findViewById(R.id.dialog_date_date_picker);
-        mDatePicker.init(year,month,day,null);
-        return new AlertDialog.Builder(getActivity())
-                .setView(v)
-                .setTitle(R.string.date_picker_title)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int year=mDatePicker.getYear();
-                                int month=mDatePicker.getMonth();
-                                int day=mDatePicker.getDayOfMonth();
-                                Date date=new GregorianCalendar(year,month,day).getTime();
-                                sendResult(Activity.RESULT_OK,date);
-                            }
-                        })
-                .create();
-    }*/
     private void sendResult(int resultCode,Date date){
         Intent data=new Intent();
         data.putExtra(EXTRA_DATE,date);
