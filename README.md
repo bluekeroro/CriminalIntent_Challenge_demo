@@ -18,7 +18,7 @@
      * SQLite
      * Implicit intent
      * master-detail UI
-## Demo sreenshot:
+## Demo screenshot:
 ![image](https://user-images.githubusercontent.com/25412051/38764558-ebbad422-3fe3-11e8-9c1f-5e249d869698.png)
 ![image](https://user-images.githubusercontent.com/25412051/38764563-037d8028-3fe4-11e8-9630-b5ecb9d24bf6.png)
 ![image](https://user-images.githubusercontent.com/25412051/38764577-47cb68bc-3fe4-11e8-82a0-6a4fca7942d1.png)
